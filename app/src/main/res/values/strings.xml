@@ -15,4 +15,5 @@
     <string name="about_menu">about</string>
     <string name="home_txt">home</string>
     <string name="ruler_title">rules</string>
+    <string name="quiz_game_title">Quiz</string>
 </resources>
