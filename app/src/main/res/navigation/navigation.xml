@@ -9,8 +9,8 @@
     <fragment
         android:id="@+id/titleFragment"
         android:name="com.hadeer.triviaapplication.TitleFragment"
-        android:label="fragment_title"
-        tools:layout="@layout/fragment_title" >
+        android:label=""
+        tools:layout="@layout/fragment_title">
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
@@ -18,8 +18,8 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.hadeer.triviaapplication.GameFragment"
-        android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        android:label="@string/quiz_game_title"
+        tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_gameFragment_to_gameResultFragment"
             app:destination="@id/gameResultFragment"
@@ -39,11 +39,11 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.hadeer.triviaapplication.AboutFragment"
-        android:label="fragment_about"
+        android:label="@string/about_menu"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/rulesFragment"
         android:name="com.hadeer.triviaapplication.RulesFragment"
-        android:label="fragment_rules"
+        android:label="@string/ruler_title"
         tools:layout="@layout/fragment_rules" />
 </navigation>
