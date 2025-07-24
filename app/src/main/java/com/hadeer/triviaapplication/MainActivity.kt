@@ -1,24 +1,16 @@
 package com.hadeer.triviaapplication
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.hadeer.triviaapplication.databinding.ActivityMainBinding
@@ -76,6 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleNavigation() {
+        binding.toolbarInclude.applicationActionToolbar.setTitleTextColor(resources.getColor(R.color.white))
         navController.addOnDestinationChangedListener{_,destination,_ ->
             if(destination.id == R.id.titleFragment){
                 //show BurgerMenu
@@ -103,8 +96,17 @@ class MainActivity : AppCompatActivity() {
         return if(drawertoggle.onOptionsItemSelected(item)){
             true
         }
+        else if(item.itemId == R.id.aboutFragment){
+            navController.navigate(R.id.aboutFragment)
+            true
+        }
         else{
             super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_menu, menu)
+        return true
     }
 }
