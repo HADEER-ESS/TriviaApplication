@@ -12,8 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_marginTop="28dp"
+        android:contentDescription="@string/the_main_screen_image_for_questions"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/android_category_simple"
+        />
+
+    <TextView
+        android:id="@+id/text_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/question_screen_img"
+        tools:text="what is the layout that used in grid?"
+        android:layout_marginTop="36dp"
+        android:textSize="24sp"
+        android:paddingHorizontal="12dp"
+        />
+
+    <include
+        android:id="@+id/answers_container_include"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/text_question"
+        layout="@layout/answer_radio_group_component"
+        android:layout_marginTop="18dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
