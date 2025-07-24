@@ -2,7 +2,9 @@ package com.hadeer.triviaapplication
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Layout.Alignment
 import android.util.AttributeSet
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleNavigation() {
+        binding.toolbarInclude.applicationActionToolbar.setTitleTextColor(resources.getColor(R.color.white))
         navController.addOnDestinationChangedListener{_,destination,_ ->
             if(destination.id == R.id.titleFragment){
                 //show BurgerMenu
@@ -103,8 +106,17 @@ class MainActivity : AppCompatActivity() {
         return if(drawertoggle.onOptionsItemSelected(item)){
             true
         }
+        else if(item.itemId == R.id.aboutFragment){
+            navController.navigate(R.id.aboutFragment)
+            true
+        }
         else{
             super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_menu, menu)
+        return true
     }
 }
