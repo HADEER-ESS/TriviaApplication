@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -16,22 +17,34 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 import com.hadeer.triviaapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     //nav controller
     private lateinit var navController : NavController
+    private lateinit var appBarConfig : AppBarConfiguration
     //create Drawer
+    private lateinit var navView : NavigationView
     private lateinit var drawer : DrawerLayout
     private lateinit var drawertoggle : ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        //set toolbar
+        enableEdgeToEdge()
+        // Get the NavController from the NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as? NavHostFragment
+        navController = navHostFragment?.navController!!
+        // Configure app bar to work with the drawer layout
+        //                                  navigation graph,       drawer layout
+        appBarConfig = AppBarConfiguration(navController.graph, binding.applicationDrawer)
+
+        // Set up the custom toolbar as ActionBar
         setSupportActionBar(binding.toolbarInclude.applicationActionToolbar)
         //set drawer
         handleDrawer()
@@ -41,46 +54,57 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun handleDrawer(){
+        navView = binding.applicationNavigationView
         drawer = binding.applicationDrawer
-        // init action bar drawer toggle
-        drawertoggle = ActionBarDrawerToggle(this, drawer,binding.toolbarInclude.applicationActionToolbar,  R.string.nav_open, R.string.nav_close)
-        //add drawer listener
+        // Initialize drawer toggle (hamburger ↔ back arrow)
+        drawertoggle = ActionBarDrawerToggle(this,
+            drawer,
+            binding.toolbarInclude.applicationActionToolbar,
+            R.string.nav_open,
+            R.string.nav_close)
+        //Listen for drawer open/close
         drawer.addDrawerListener(drawertoggle)
+        // Sync toggle state with drawer
         drawertoggle.syncState()
         //change the color of BurgerMenu
         drawertoggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.white)
+        // Display back arrow if needed
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // Sync toolbar with NavController and AppBarConfiguration
+        binding.toolbarInclude.applicationActionToolbar.setupWithNavController(navController,appBarConfig)
+
     }
 
     private fun handleNavigation() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as? NavHostFragment
-
-        navController = navHostFragment?.navController!!
         navController.addOnDestinationChangedListener{_,destination,_ ->
             if(destination.id == R.id.titleFragment){
                 //show BurgerMenu
                 drawertoggle.isDrawerIndicatorEnabled = true
-                drawertoggle.setHomeAsUpIndicator(R.drawable.menu_icv)
                 drawertoggle.syncState()
             }
             else{
-                //show Back Arrow
+                //to hide the burger menu from toolbar when navigate in
                 drawertoggle.isDrawerIndicatorEnabled = false
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                //display BACK ARROW instead of removed MENU
                 drawertoggle.setHomeAsUpIndicator(R.drawable.back_icv)
             }
         }
+        // Let NavigationView automatically handle navigation item clicks
+        navView.setupWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        // Navigate up in the NavController stack, fallback to default
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle drawer toggle click
-        if (drawertoggle.isDrawerIndicatorEnabled && drawertoggle.onOptionsItemSelected(item)) {
-            return true
+        // Let the drawer toggle handle the item
+        return if(drawertoggle.onOptionsItemSelected(item)){
+            true
         }
-        // Handle back arrow
-        if (item.itemId == R.id.titleFragment) {
-            onBackPressedDispatcher.onBackPressed()
-            return true
+        else{
+            super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }
