@@ -8,6 +8,7 @@ import com.hadeer.triviaapplication.databinding.AnswerRadioItemBinding
 class AnswersAdaptor(val data : List<String>):
     RecyclerView.Adapter<AnswersAdaptor.AnswersViewHolder>() {
 
+        private var selectedItem = -1
     class AnswersViewHolder(private val binding:AnswerRadioItemBinding): RecyclerView.ViewHolder(binding.root){
         val answerItem = binding.multipleChoiceItem
     }
@@ -24,7 +25,18 @@ class AnswersAdaptor(val data : List<String>):
 
     override fun onBindViewHolder(holder: AnswersViewHolder, position: Int) {
         val renderItem = data[position]
-
         holder.answerItem.text = renderItem
+        holder.answerItem.isChecked = (selectedItem == position)
+
+        holder.answerItem.setOnClickListener{
+            val previousSelectedItem = selectedItem
+            selectedItem = holder.adapterPosition
+            notifyItemChanged(previousSelectedItem)
+            notifyItemChanged(selectedItem)
+        }
+    }
+
+    fun getSelectedAnswer():Int?{
+        return if(selectedItem != -1) selectedItem else null
     }
 }

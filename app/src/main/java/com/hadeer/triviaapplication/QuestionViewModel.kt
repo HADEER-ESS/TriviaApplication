@@ -8,14 +8,21 @@ import androidx.lifecycle.map
 class QuestionViewModel:ViewModel() {
     private val questiions = QuestionsData.getRandom()
 
-    private val _curentIndx = MutableLiveData(0)
-    var curentIndex : LiveData<Int> = _curentIndx
+    private val _currentIndx = MutableLiveData(0)
+    var curentIndex : LiveData<Int> = _currentIndx
+    private val _currentResult = MutableLiveData(0)
+    val currentResult : LiveData<Int> = _currentResult
 
     val currentQuestion : LiveData<Question> = curentIndex.map { questiions[it] }
 
     fun goToNextQuestion(){
-        if(_curentIndx.value!! < questiions.lastIndex){
-            _curentIndx.value = _curentIndx.value?.plus(1)
+        if(_currentIndx.value!! < questiions.lastIndex){
+            _currentIndx.value = _currentIndx.value?.plus(1)
         }
+    }
+
+    fun updateResult(){
+        _currentResult.value = _currentResult.value?.plus(1)
+        println("updated answer ${_currentResult.value} size is ${questiions.size}")
     }
 }

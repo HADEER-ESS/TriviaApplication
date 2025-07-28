@@ -118,9 +118,8 @@ object QuestionsData {
 
     fun getRandom():List<Question>{
         val randomData : MutableList<Question> = mutableListOf()
-        val randomNumbers = List(4){ Random.nextInt(0, Data.size) }
-
-        for(i in randomNumbers){
+        val uniqueNums = (0..<Data.size).shuffled().take(4)
+        for(i in uniqueNums){
             randomData.add(Data[i])
         }
         return randomData
