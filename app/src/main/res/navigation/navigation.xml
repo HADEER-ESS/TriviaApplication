@@ -30,12 +30,7 @@
         android:id="@+id/gameResultFragment"
         android:name="com.hadeer.triviaapplication.GameResultFragment"
         android:label="fragment_game_result"
-        tools:layout="@layout/fragment_game_result" >
-        <action
-            android:id="@+id/action_gameResultFragment_to_gameFragment"
-            app:destination="@id/gameFragment"
-            app:popUpTo="@id/titleFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_game_result" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.hadeer.triviaapplication.AboutFragment"
