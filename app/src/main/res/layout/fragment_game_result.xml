@@ -1,36 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     android:background="@color/youWinBackground"
-    tools:context=".GameResultFragment">
+    android:paddingHorizontal="45dp">
 
+    <!-- Image (top portion of screen only) -->
     <ImageView
         android:id="@+id/won_img"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
+        android:layout_height="400dp"
         android:contentDescription="@string/you_win_image"
-        app:layout_constraintBottom_toTopOf="@+id/action_result_btn"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/congrats_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
         tools:srcCompat="@drawable/you_win" />
 
+    <!-- Text below image -->
+    <TextView
+        android:id="@+id/congrats_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/action_result_btn"
+        app:layout_constraintTop_toBottomOf="@id/won_img"
+        tools:text="You Win!" />
+
+    <!-- Button below text -->
     <Button
         android:id="@+id/action_result_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/won_img"
-        android:backgroundTint="@android:color/darker_gray"
-        android:textSize="18sp"
-        android:textColor="@color/youWinBackground"
-        tools:text="@string/try_again" />
+        app:layout_constraintTop_toBottomOf="@id/congrats_text"
+        tools:text="Continue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
