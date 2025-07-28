@@ -17,4 +17,5 @@
     <string name="ruler_title">rules</string>
     <string name="quiz_game_title">Quiz</string>
     <string name="the_main_screen_image_for_questions">the main screen image for questions</string>
+    <string name="submit_btn_txt">Submit</string>
 </resources>

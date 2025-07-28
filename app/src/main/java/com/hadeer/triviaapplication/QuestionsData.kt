@@ -1,26 +1,30 @@
 package com.hadeer.triviaapplication
 
+import kotlin.random.Random
+
 object QuestionsData {
-    val Data : List<Question> = listOf(
+    private val Data : List<Question> = listOf(
         Question(
             1,
             "What is Android Jetpack?",
             listOf(
-                "all of these",
                 "tools",
+                "all of these",
                 "documentation",
                 "libraries"
-            )
+            ),
+1
         ),
         Question(
             2,
             "Base class for Layout?",
             listOf(
-                "ViewGroup",
                 "ViewSet",
                 "ViewCollection",
+                "ViewGroup",
                 "ViewRoot"
-            )
+            ),
+            2
         ),
         Question(
             3,
@@ -30,57 +34,63 @@ object QuestionsData {
                 "GridLayout",
                 "LinearLayout",
                 "FrameLayout"
-            )
+            ),
+            0
         ),
         Question(
             4,
             "Pushing structured data into a Layout?",
             listOf(
-                "Data Binding",
                 "Data Pushing",
                 "Set Text",
-                "OnClick"
-            )
+                "OnClick",
+                "Data Binding",
+            ),
+            3
         ),
         Question(
             5,
             "Inflate layout in fragments?",
             listOf(
-                "onCreateView",
                 "onViewCreated",
                 "onCreateLayout",
-                "onInflateLayout"
-            )
+                "onInflateLayout",
+                "onCreateView"
+            ),
+            3
         ), 
         Question(
             6,
             "Build system for Android?",
             listOf(
-                "Gradle",
                 "Graddle",
+                "Gradle",
                 "Grodle",
                 "Groyle"
-            )
+            ),
+            1
         ),
         Question(
             7,
             "Android vector format?",
             listOf(
-                "VectorDrawable",
                 "AndroidVectorDrawable",
                 "DrawableVector",
+                "VectorDrawable",
                 "AndroidVector"
-            )
+            ),
+            2
         ),
         Question(
             8,
             "Android Navigation Component?",
             listOf(
-                "NavController",
                 "NavCentral",
                 "NavMaster",
-                "NavSwitcher"
-            )
+                "NavSwitcher",
+                "NavController"
+            ),
+            3
         ),
         Question(
             9,
@@ -90,17 +100,29 @@ object QuestionsData {
                 "app-registry",
                 "launcher-registry",
                 "app-launcher"
-            )
+            ),
+            0
         ),
         Question(
             10,
             "Mark a layout for Data Binding?",
             listOf(
-                "<layout>",
                 "<binding>",
+                "<layout>",
                 "<data-binding>",
                 "<dbinding>"
-            )
+            ),
+            1
         )
     )
+
+    fun getRandom():List<Question>{
+        val randomData : MutableList<Question> = mutableListOf()
+        val randomNumbers = List(4){ Random.nextInt(0, Data.size) }
+
+        for(i in randomNumbers){
+            randomData.add(Data[i])
+        }
+        return randomData
+    }
 }

@@ -38,4 +38,17 @@
         android:layout_marginTop="18dp"
         />
 
+    <Button
+        android:id="@+id/submite_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_btn_txt"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/answers_container_include"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/youWinDark"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
