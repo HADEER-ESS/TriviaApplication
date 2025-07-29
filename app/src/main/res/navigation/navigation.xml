@@ -29,7 +29,6 @@
     <fragment
         android:id="@+id/gameResultFragment"
         android:name="com.hadeer.triviaapplication.GameResultFragment"
-        android:label="fragment_game_result"
         tools:layout="@layout/fragment_game_result" />
     <fragment
         android:id="@+id/aboutFragment"
