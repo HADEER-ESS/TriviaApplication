@@ -34,15 +34,17 @@ class GameResultFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation", "UseCompatLoadingForDrawables")
     private fun decideViewResult() {
         val res = arguments?.getInt("result")
             println("correct answers is $res")
         if (res != null) {
             if(res >= 4){
+                binding.resultLayout.background = resources.getDrawable(R.color.youWinBackground)
                 binding.wonImg.setImageResource(R.drawable.you_win)
                 binding.actionResultBtn.text = getString(R.string.next_match)
             } else{
+                binding.resultLayout.background = resources.getDrawable(R.color.gameOverBackground)
                 binding.wonImg.setImageResource(R.drawable.try_again)
                 binding.actionResultBtn.text = getString(R.string.try_again)
             }
