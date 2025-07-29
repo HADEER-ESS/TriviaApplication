@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.hadeer.triviaapplication.databinding.ActivityMainBinding
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
+        drawer = binding.applicationDrawer
         // Get the NavController from the NavHostFragment
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as? NavHostFragment
         navController = navHostFragment?.navController!!
@@ -88,7 +91,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         // Navigate up in the NavController stack, fallback to default
-        return navController.navigateUp() || super.onSupportNavigateUp()
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+        val navController = this.findNavController(R.id.my_nav_host_fragment)
+        return NavigationUI.navigateUp(navController, drawer)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -104,9 +109,4 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.app_menu, menu)
-//        return true
-//    }
 }
