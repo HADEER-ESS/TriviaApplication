@@ -1,11 +1,17 @@
 package com.hadeer.triviaapplication
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -25,6 +31,8 @@ class GameResultFragment : Fragment() {
         binding = FragmentGameResultBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
         handleBtnNavigation()
+        //We’ll start by adding setHasOptionsMenu(true) to onCreateView() in our GameWonFragment.
+        setHasOptionsMenu(true)
         decideViewResult()
         return binding.root
     }
@@ -43,12 +51,50 @@ class GameResultFragment : Fragment() {
             }
         }
         binding.congratsText.text = " ${getString(R.string.your_score_is)} $res / 4"
-
+        setHasOptionsMenu(true)
     }
-
     private fun handleBtnNavigation() {
         binding.actionResultBtn.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private fun shareIntentText() : Intent{
+        val res = arguments?.getInt("result")
+//        val sharedIntent = ShareCompat.IntentBuilder.from(activity)
+//            .setType("text/plain")
+//            .setText(getString(R.string.your_score_is, res , 4))
+//            .intent
+        val sharedIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.your_score_is, res , 4))
+            type = "text/plain"
+        }
+        return sharedIntent
+//        startActivity(sharedIntent)
+    }
+
+    private fun successStartActivity(){
+        startActivity(shareIntentText())
+    }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        //to show the action of the navigation menu item
+        inflater.inflate(R.menu.app_menu, menu)
+        //check if the activity resolves to avoid app crash when remove try prom SharedIntent
+        if (null == shareIntentText().resolveActivity(requireActivity().packageManager)) {
+            // hide the menu item if it doesn't resolve
+            menu.findItem(R.id.share)?.setVisible(false)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.share){
+            successStartActivity()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

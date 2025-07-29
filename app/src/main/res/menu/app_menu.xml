@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/aboutFragment"
+        android:id="@+id/share"
         android:icon="@drawable/share_icv"
         app:showAsAction="ifRoom"
-        android:contentDescription="@string/about_menu"
-        android:title="@string/about_menu" />
+        android:contentDescription="@string/share_menu"
+        android:title="@string/share_menu" />
 </menu>
