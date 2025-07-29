@@ -1,11 +1,10 @@
-package com.hadeer.triviaapplication
+package com.hadeer.triviaapplication.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hadeer.triviaapplication.databinding.FragmentGameBinding
 import com.hadeer.triviaapplication.databinding.FragmentRulesBinding
 
 

@@ -1,4 +1,4 @@
-package com.hadeer.triviaapplication
+package com.hadeer.triviaapplication.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

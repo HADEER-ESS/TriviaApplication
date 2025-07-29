@@ -1,4 +1,4 @@
-package com.hadeer.triviaapplication
+package com.hadeer.triviaapplication.ui.questions
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.hadeer.triviaapplication.ui.results.AnswersAdaptor
+import com.hadeer.triviaapplication.R
 import com.hadeer.triviaapplication.databinding.FragmentGameBinding
 
 

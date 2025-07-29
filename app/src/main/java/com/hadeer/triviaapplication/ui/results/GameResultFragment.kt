@@ -1,4 +1,4 @@
-package com.hadeer.triviaapplication
+package com.hadeer.triviaapplication.ui.results
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,11 +10,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ShareCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.hadeer.triviaapplication.R
 import com.hadeer.triviaapplication.databinding.FragmentGameResultBinding
 
 

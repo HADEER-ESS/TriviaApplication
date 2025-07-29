@@ -1,4 +1,4 @@
-package com.hadeer.triviaapplication
+package com.hadeer.triviaapplication.ui.questions
 
 data class Question(
     val id : Int,

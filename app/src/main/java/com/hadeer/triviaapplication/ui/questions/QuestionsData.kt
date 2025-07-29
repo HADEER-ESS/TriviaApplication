@@ -1,6 +1,4 @@
-package com.hadeer.triviaapplication
-
-import kotlin.random.Random
+package com.hadeer.triviaapplication.ui.questions
 
 object QuestionsData {
     private val Data : List<Question> = listOf(

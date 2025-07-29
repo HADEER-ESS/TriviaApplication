@@ -6,6 +6,10 @@
         android:title="@string/home_txt"
         />
     <item
+        android:id="@+id/aboutFragment"
+        android:title="@string/about_menu"
+        />
+    <item
         android:id="@+id/rulesFragment"
         android:title="@string/ruler_title" />
 </menu>

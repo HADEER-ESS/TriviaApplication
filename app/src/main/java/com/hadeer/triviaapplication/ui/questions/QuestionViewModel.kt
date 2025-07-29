@@ -1,4 +1,4 @@
-package com.hadeer.triviaapplication
+package com.hadeer.triviaapplication.ui.questions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
