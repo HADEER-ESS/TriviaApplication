@@ -16,5 +16,5 @@
 <li>Animation</li>
 
 <h3>Video</h3>
-https://github.com/user-attachments/assets/8f86d11e-8b18-4c58-a066-1a8bd8a0ff8a
+https://github.com/user-attachments/assets/8f86d11e-8b18-4c58-a066-1a8bd8a0ff8a.mp4
 
