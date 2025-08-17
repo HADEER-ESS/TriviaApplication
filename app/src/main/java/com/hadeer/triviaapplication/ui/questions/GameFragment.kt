@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.hadeer.triviaapplication.ui.results.AnswersAdaptor
 import com.hadeer.triviaapplication.R
 import com.hadeer.triviaapplication.databinding.FragmentGameBinding
 
@@ -20,7 +20,6 @@ class GameFragment : Fragment() {
     private lateinit var viewModel : QuestionViewModel
     private lateinit var recyclerView : RecyclerView
     private lateinit var adaptor : AnswersAdaptor
-    private var count : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,19 +30,32 @@ class GameFragment : Fragment() {
     ): View? {
         binding = FragmentGameBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
+        viewModel = ViewModelProvider(this)[QuestionViewModel::class.java]
+        handleNavigateState()
+        handleRenderData()
         return binding.root
+    }
+
+    private fun handleNavigateState () {
+        viewModel.gameFinishedEvent.observe(viewLifecycleOwner, Observer { isTrue ->
+            if(isTrue){
+                val argumants = Bundle().apply {
+                    viewModel.currentResult.value?.let { value -> putInt("result", value) }
+                }
+                viewModel.onGameFinishComplete()
+                findNavController().navigate(R.id.action_gameFragment_to_gameResultFragment, argumants)
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[QuestionViewModel::class.java]
         linkRecyclerViewWithAdaptor()
-        handleRenderData()
+
     }
 
     private fun handleRenderData() {
         viewModel.currentQuestion.observe(viewLifecycleOwner){question ->
-            println("question is $question")
             binding.textQuestion.text = question.question
             adaptor = AnswersAdaptor(question.answers)
             recyclerView.adapter = adaptor
@@ -56,17 +68,7 @@ class GameFragment : Fragment() {
                 if(selectedAnswer ==question.correctAns){
                     viewModel.updateResult()
                 }
-                count++
-
-                if(count == 4){
-                    val argumants = Bundle().apply {
-                        viewModel.currentResult.value?.let { value -> putInt("result", value) }
-                    }
-                    findNavController().navigate(R.id.action_gameFragment_to_gameResultFragment, argumants)
-                }
-                else{
-                    viewModel.goToNextQuestion()
-                }
+                viewModel.goToNextQuestion()
             }
         }
     }

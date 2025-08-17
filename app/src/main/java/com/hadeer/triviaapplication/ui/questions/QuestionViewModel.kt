@@ -13,16 +13,25 @@ class QuestionViewModel:ViewModel() {
     private val _currentResult = MutableLiveData(0)
     val currentResult : LiveData<Int> = _currentResult
 
+    private val _gameFinishedEvent = MutableLiveData<Boolean>(false)
+    val gameFinishedEvent : LiveData<Boolean> get() = _gameFinishedEvent
+
     val currentQuestion : LiveData<Question> = curentIndex.map { questiions[it] }
 
     fun goToNextQuestion(){
         if(_currentIndx.value!! < questiions.lastIndex){
             _currentIndx.value = _currentIndx.value?.plus(1)
+        }else{
+            _gameFinishedEvent.value = true
         }
     }
 
     fun updateResult(){
         _currentResult.value = _currentResult.value?.plus(1)
         println("updated answer ${_currentResult.value} size is ${questiions.size}")
+    }
+
+    fun onGameFinishComplete(){
+        _gameFinishedEvent.value = false
     }
 }
