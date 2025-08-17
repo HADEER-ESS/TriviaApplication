@@ -10,12 +10,15 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hadeer.triviaapplication.R
 import com.hadeer.triviaapplication.databinding.FragmentGameResultBinding
 
 
 class GameResultFragment : Fragment() {
+    private lateinit var viewModelFactory : ResultViewModelFactory
+    private lateinit var viewModel : ResultViewModel
     private lateinit var binding : FragmentGameResultBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,9 @@ class GameResultFragment : Fragment() {
         //We’ll start by adding setHasOptionsMenu(true) to onCreateView() in our GameWonFragment.
         setHasOptionsMenu(true)
         decideViewResult()
+        viewModelFactory = ResultViewModelFactory(arguments?.getInt("result")?:0)
+        //I use (ViwModelProvider) to use ViewModelFactory to create this viewmodel
+        viewModel = ViewModelProvider(this, viewModelFactory)[ResultViewModel::class.java]
         return binding.root
     }
 
