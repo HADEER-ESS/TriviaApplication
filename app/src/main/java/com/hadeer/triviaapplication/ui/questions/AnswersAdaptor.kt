@@ -1,4 +1,4 @@
-package com.hadeer.triviaapplication.ui.results
+package com.hadeer.triviaapplication.ui.questions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
